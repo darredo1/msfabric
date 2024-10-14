@@ -1,0 +1,12 @@
+# if you update a file by, say, adding new columns, you may have to overwrite the schema
+# for the table
+
+try:
+    df_clean.write.format("delta")\
+        .mode('overwrite')\
+        .option("delta.columnMapping.mode", "name")\
+        .option("overwriteSchema", "true")\
+        .saveAsTable("DIM_invoice")
+    print("success")
+except Exception as e:
+    print(f"Error: {e}")
